@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: root
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: root
+      MYSQL_DATABASE: app_name_development
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/data/mysql:/var/lib/mysql
+
+  api:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app_name
+      - /app_name/db/data
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_HOST: db
+      DATABASE_DATABASE: app_name_development
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD:
+      DATABASE_SOCKET: /var/run/mysqld/mysqld.sock
+      DATABASE_PORT: 3306
+
