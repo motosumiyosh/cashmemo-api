@@ -8,7 +8,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_ROOT_HOST: '%'
       MYSQL_USER: root
-      MYSQL_DATABASE: app_name_development
+      MYSQL_DATABASE: cashmemo_development
       MYSQL_TCP_PORT: 3306
     ports:
       - "3306:3306"
@@ -29,7 +29,7 @@ services:
     stdin_open: true
     environment:
       DATABASE_HOST: db
-      DATABASE_DATABASE: app_name_development
+      DATABASE_DATABASE: cashmemo_development
       DATABASE_USERNAME: root
       DATABASE_PASSWORD:
       DATABASE_SOCKET: /var/run/mysqld/mysqld.sock
