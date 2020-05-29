@@ -1,21 +1,13 @@
+# frozen_string_literal: true
+
 class Api::V1::TransactionsController < ApplicationController
-  def create
+  def create; end
 
-  end
+  def update; end
 
-  def update
+  def destroy; end
 
-  end
+  def index; end
 
-  def destroy
-
-  end
-
-  def index
-
-  end
-
-  def show
-
-  end
+  def show; end
 end
