@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  after_balance: 1
+  amount: 1
+  content: MyString
+  large_item: 1
+  small_item: 1
+
+two:
+  after_balance: 1
+  amount: 1
+  content: MyString
+  large_item: 1
+  small_item: 1
