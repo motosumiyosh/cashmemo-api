@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'signin', to: 'session#create'
       delete 'signout', to: 'session#destroy'
+      post 'signup', to: 'users#create'
 
       resource :transactions, only: %i[index create show update destroy]
     end
