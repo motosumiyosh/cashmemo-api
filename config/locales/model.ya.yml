@@ -1,0 +1,21 @@
+ja:
+  enums:
+    transaction:
+      transaction_type:
+        plus: プラス
+        minus: マイナス
+  activerecord:
+    models:
+      user: ユーザー
+      transaction: 入出金
+    attributes:
+      user:
+        name: 名前
+        image: プロフィール
+        email: メール
+      transaction:
+        amount: 金額
+        content: 内容
+        large_category: 大項目
+        small_category: 小項目
+        transaction_type: プラスマイナス
