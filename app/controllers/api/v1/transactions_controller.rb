@@ -2,12 +2,13 @@
 
 class Api::V1::TransactionsController < ApplicationController
   def create
-    transaction = Transaction.create!(transaction_params)
+    transaction = @current_user.transactions.create!(transaction_params)
     render json: transaction
   end
 
   def update
-    transaction = Transaction.update!(transaction_params)
+    transaction = Transaction.find(params[:id])
+    transaction.update!(transaction_params)
     render json: transaction
   end
 
@@ -30,7 +31,7 @@ class Api::V1::TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(
-      :amount, :content, :large_category, :small_category, :transaction_type
+      :amount, :content, :category, :transaction_type
     )
   end
 end
