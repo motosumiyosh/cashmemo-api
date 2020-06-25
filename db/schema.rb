@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_075317) do
+ActiveRecord::Schema.define(version: 2020_06_25_025104) do
 
   create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "amount"
     t.string "content"
-    t.integer "large_category"
-    t.integer "small_category"
+    t.integer "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "transaction_type"
     t.datetime "deleted_at"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -30,8 +31,8 @@ ActiveRecord::Schema.define(version: 2020_06_24_075317) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", null: false
-    t.string "token"
     t.integer "amount"
   end
 
+  add_foreign_key "transactions", "users"
 end

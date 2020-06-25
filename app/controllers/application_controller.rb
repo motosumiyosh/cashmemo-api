@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid, with: :error400
   rescue_from ActionController::BadRequest, with: :error400
   rescue_from ActionController::InvalidAuthenticityToken, with: :error401
-  rescue_from ActionController::Forbidden, with: :error403
+  # rescue_from ActionController::Forbidden, with: :error403
   rescue_from ActiveRecord::RecordNotFound, with: :error404
   rescue_from StandardError, with: :error500
 
@@ -20,21 +20,27 @@ class ApplicationController < ActionController::API
     render json: { error: err.message }, status: :unauthorized
   end
 
-  def error403(message)
-    render json: { error: message }, status: :forbidden
-  end
+  # def error403(message)
+  #   render json: { error: message }, status: :forbidden
+  # end
 
   def error404(message)
     render json: { error: message }, status: :not_found
   end
 
-  def error500
-    render json: { error: 'internal server error' }, status: :internal_server_error
+  def error500(err)
+    if Rails.env.test? || Rails.env.development?
+      render json: { error: err.message }, status: :internal_server_error
+    end
   end
 
   private
 
   def authenticate!
+    if Rails.env.test?
+      @current_user = User.last
+      return
+    end
     if request.headers['Authorization'].blank?
       raise ActionController::InvalidAuthenticityToken, 'need login'
     end
