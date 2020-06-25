@@ -29,7 +29,9 @@ class ApplicationController < ActionController::API
   end
 
   def error500(err)
-    render json: { error: err.message }, status: :internal_server_error
+    if Rails.env.test? || Rails.env.development?
+      render json: { error: err.message }, status: :internal_server_error
+    end
   end
 
   private
