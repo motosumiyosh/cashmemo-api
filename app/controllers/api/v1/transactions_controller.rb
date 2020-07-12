@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 class Api::V1::TransactionsController < ApplicationController
+  before_action :set_transaction, only: %i(update destroy show)
+
   def create
     transaction = @current_user.transactions.create!(transaction_params)
     render json: transaction
   end
 
   def update
-    transaction = Transaction.find(params[:id])
-    transaction.update!(transaction_params)
-    render json: transaction
+    @transaction.update!(transaction_params)
+    render json: @transaction
   end
 
   def destroy
-    transaction = Transaction.find(params[:id])
-    transaction.destroy
-    render json: transaction, status: :ok
+    @transaction.destroy
+    render json: @transaction, status: :ok
   end
 
   def index
@@ -24,11 +24,14 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def show
-    transaction = Transaction.find(params[:id])
-    render json: transaction
+    render json: @transaction
   end
 
   private
+
+  def set_transaction
+    @transaction = Transaction.find(params[:id])
+  end
 
   def transaction_params
     params.require(:transaction).permit(
