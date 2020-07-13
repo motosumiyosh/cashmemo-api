@@ -8,6 +8,7 @@ class Api::V1::UsersController < ApplicationController
       password: params[:password],
       email: params[:email]
     )
+    response.headers['X-Authentication-Token'] = encode(@user.id)
     render json: @user, status: :ok
   end
 
