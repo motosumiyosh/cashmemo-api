@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authenticate!, only: [:create]
+  skip_before_action :authenticate!
 
   def create
     @user = User.create!(
